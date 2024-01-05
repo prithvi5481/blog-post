@@ -1,0 +1,14 @@
+.active{
+    font-weight: bolder;
+    color: white;
+    background: rgb(45, 218, 218);
+    /* border-right: solid 3px #ef8236; */
+    border-radius:20px;
+    width: 144px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.nav-link:hover:not(.active) {
+    background-color: rgb(255, 255, 255); /* Change this to your desired hover background color */
+}
