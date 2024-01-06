@@ -21,10 +21,10 @@ const Post = ({post}) => {
             const res = await fetchComments(post._id);
             console.log("api comment data",res.data.comments);
             setCommArray(res.data.comments);
-            setCommCount(commArray?.length);
+            setCommCount(res.data.comments.length);
         }
         fetchAllComments();
-    },[commCount])
+    },[post._id])
 
     const handleLikes = async (e) => {
         e.preventDefault();
