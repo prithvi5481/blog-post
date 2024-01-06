@@ -24,7 +24,7 @@ const Post = ({post}) => {
             setCommCount(commArray?.length);
         }
         fetchAllComments();
-    },[post._id])
+    },[commCount])
 
     const handleLikes = async (e) => {
         e.preventDefault();
@@ -40,26 +40,21 @@ const Post = ({post}) => {
     const handleCommentToggle = async (e) => {
         e.preventDefault();
         setShowComments(!showComments);
-        //const postId = post._id;
-        // const res = await fetchComments(postId);
-        // setCommCount(commArray?.length)
-        // console.log('result of all comments',res?.data);
-        //setCommArray(res?.data);
     }
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        const userId = (await getUserId()).data;
+        const userId = (await getUserId()).data.userId;
         const postId = post._id;
        
         console.log('userId of comment user', userId);
         console.log('comment:', comment);
-        const res = await postComment({ text: comment, postId, userId });
-        console.log('res in post page', res);
+        const res = await postComment({ text: comment, postId:postId, userId:userId });
+        //console.log('res in post page', res);
         const res1 = await fetchComments(postId);
-        console.log('result of all comments',res1.data);
-        setCommArray(res1?.data);
-        setCommCount(commArray?.length)
+        setCommArray(res1?.data?.commmets);
+        setCommCount((prev) => prev+1);
+        //console.log('result of all comments',res1?.data?.comments);
         setComment(''); // Clear the input field after submitting
         return res;
     };
@@ -137,7 +132,7 @@ const Post = ({post}) => {
                 </button>
             </form>
             <div>
-                {commArray.map((comment, index) => (
+                {commArray?.map((comment, index) => (
                 <div key={index}>
                     <strong>{comment?.user?.name}:</strong> {comment?.text}
                 </div>

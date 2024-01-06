@@ -93,12 +93,12 @@ export const postComment = async (payload) => {
             },
         };
         console.log('config address',config);
-
         const payloadData = {
             text:payload.text,
-            userId:payload.userId
+            userId: payload.userId
         }
-        console.log('userId of commentdata',payloadData.userId);
+        
+        console.log('userId of commentdata',payloadData);
 
         const url = `${CONSTANT.API_URL}/newpost/posts/${payload.postId}/comments`;
         const res = await axios.post(url,payloadData,config);

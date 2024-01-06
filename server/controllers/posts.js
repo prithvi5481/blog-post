@@ -76,8 +76,9 @@ export const addDislikes = async (req,res) => {
 export const addComments = async (req,res) => {
     try {
         const postId = req.params.id;
-        const {userId, text} = req.body;
-
+        const {text, userId} = req.body;
+        console.log('text',text);
+        console.log('userId',userId);
         const post = await Post.findByIdAndUpdate(
             postId, 
             {$push : {comments:{user:userId,text}}},
