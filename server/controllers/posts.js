@@ -96,3 +96,16 @@ export const addComments = async (req,res) => {
     }
 }
 
+export const fetchComments = async (req,res) => {
+    try {
+        const postId = req.params.id;
+        const post = await Post.findById(postId).populate('comments.user','name');
+        if(!post){
+            return res.status(400).json({message:"No posts available"});
+        }
+        res.status(200).json(post);
+    } catch (error) {
+        console.error('Error fetching comment:', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+}

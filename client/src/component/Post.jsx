@@ -12,7 +12,19 @@ const Post = ({post}) => {
     const [showComments,setShowComments] = useState(false);
     const [comment, setComment] = useState('');
     const [commArray, setCommArray] = useState([]);
-    const [commCount,setCommCount] = useState(commArray.length);
+    const [commCount,setCommCount] = useState(commArray?.length);
+
+
+    useEffect(() => {
+        const fetchAllComments = async () => {
+            console.log('post id of api comment',post._id);
+            const res = await fetchComments(post._id);
+            console.log("api comment data",res.data.comments);
+            setCommArray(res.data.comments);
+            setCommCount(commArray?.length);
+        }
+        fetchAllComments();
+    },[post._id])
 
     const handleLikes = async (e) => {
         e.preventDefault();
@@ -28,11 +40,11 @@ const Post = ({post}) => {
     const handleCommentToggle = async (e) => {
         e.preventDefault();
         setShowComments(!showComments);
-        const postId = post._id;
-        const res = await fetchComments(postId);
-        setCommCount(commArray.length)
-        console.log('result of all comments',res.data);
-        setCommArray(res.data);
+        //const postId = post._id;
+        // const res = await fetchComments(postId);
+        // setCommCount(commArray?.length)
+        // console.log('result of all comments',res?.data);
+        //setCommArray(res?.data);
     }
 
     const handleCommentSubmit = async (e) => {
@@ -45,9 +57,9 @@ const Post = ({post}) => {
         const res = await postComment({ text: comment, postId, userId });
         console.log('res in post page', res);
         const res1 = await fetchComments(postId);
-        //console.log('result of all comments',res1.data);
-        setCommArray(res1.data);
-        setCommCount(commArray.length)
+        console.log('result of all comments',res1.data);
+        setCommArray(res1?.data);
+        setCommCount(commArray?.length)
         setComment(''); // Clear the input field after submitting
         return res;
     };
@@ -55,7 +67,7 @@ const Post = ({post}) => {
       // Function to convert base64 to Blob and create a data URL
     const base64ToDataURL = (base64String) => {
         const binaryString = window.atob(base64String);
-        const arrayBuffer = new ArrayBuffer(binaryString.length);
+        const arrayBuffer = new ArrayBuffer(binaryString?.length);
         const uintArray = new Uint8Array(arrayBuffer);
 
         for (let i = 0; i < binaryString.length; i++) {
@@ -76,14 +88,14 @@ const Post = ({post}) => {
     >
         <div className='w-full h-[50px] bg-gray-400 flex'>
             <img src={postImage} alt='post-image' className='h-[40px] w-[30px] ml-2 pt-1.5'/>
-            <p className='pt-3 pl-4 font-serif'>{post.user.name}</p>
+            <p className='pt-3 pl-4 font-serif'>{post?.user?.name}</p>
 
         </div>
         <p>{post.content}</p>
     
         {post.image && (
             <img
-            src={base64ToDataURL(post.image)}
+            src={base64ToDataURL(post?.image)}
             alt="Post Image"
             className="w-auto h-[300px] object-cover"
             />
@@ -127,7 +139,7 @@ const Post = ({post}) => {
             <div>
                 {commArray.map((comment, index) => (
                 <div key={index}>
-                    <strong>{comment.user.name}:</strong> {comment.text}
+                    <strong>{comment?.user?.name}:</strong> {comment?.text}
                 </div>
                 ))}
             </div>
