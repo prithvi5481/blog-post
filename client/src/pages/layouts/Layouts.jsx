@@ -27,7 +27,7 @@ const Layouts = ({children}) => {
           <>
             <Header />
             <Navbar />
-            <div className='ml-[240px] pt-14'>{children}</div>
+            <div className='ml-[220px] pt-20'>{children}</div>
           </>
         )
       }

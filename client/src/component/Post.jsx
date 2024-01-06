@@ -79,14 +79,13 @@ const Post = ({post}) => {
     
     <div 
         key={post.id}
-        className='w-[500px] bg-gray-200 mb-5 border'
+        className='w-[500px] bg-gray-200 mb-5 border rounded-md'
     >
-        <div className='w-full h-[50px] bg-gray-400 flex'>
+        <div className='w-full h-[50px] bg-cyan-300 flex border rounded-t-md'>
             <img src={postImage} alt='post-image' className='h-[40px] w-[30px] ml-2 pt-1.5'/>
             <p className='pt-3 pl-4 font-serif'>{post?.user?.name}</p>
-
         </div>
-        <p>{post.content}</p>
+        <div className='mb-6 font-kolor px-1'>{post.content}</div>
     
         {post.image && (
             <img

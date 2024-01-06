@@ -127,3 +127,21 @@ export const fetchComments = async (payload) => {
         return error;
     }
 }
+
+export const getUserPosts = async (payload) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('Profile'));
+        const config = {
+            headers: {
+                Authorization: `Bearer ${profile.token}`
+            }
+        }
+        //console.log('config address',config);
+        const url = `${CONSTANT.API_URL}/newpost/posts/userposts`;
+        console.log('payload',payload);
+        const res = await axios.post(url,payload,config);
+        return res;
+    } catch (error) {
+        console.log('error in user posts');
+    }
+}

@@ -110,3 +110,18 @@ export const fetchComments = async (req,res) => {
         res.status(500).json({error: 'Internal Server Error'});
     }
 }
+
+export const getUserPosts = async (req,res) => {
+    try {
+        const {userId} = req.body;
+        console.log('userId',userId);
+        const posts = await Post.find({user:userId});
+        if(!posts){
+            return res.status(400).json({message:"no posts available"});
+        }
+        return res.status(200).json(posts);
+    } catch (error) {
+        console.log('error while finding user posts');
+        res.status(500).json({message:"Internal server error"})
+    }
+}
