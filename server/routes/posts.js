@@ -11,7 +11,7 @@ router.get('/posts/:id/getcomments',fetchComments);
 router.post('/posts',auth,createPost);
 router.post('/posts/:id/likes',auth,addLikes);
 router.post('/posts/:id/dislikes',addDislikes);
-router.post('/posts/:id/comments',addComments);
-router.post('/posts/userposts',getUserPosts);
+router.post('/posts/:id/comments',auth,addComments);
+router.post('/posts/userposts',auth,getUserPosts);
 
 export default router;

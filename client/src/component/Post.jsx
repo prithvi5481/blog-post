@@ -24,7 +24,7 @@ const Post = ({post}) => {
             setCommCount(res.data.comments.length);
         }
         fetchAllComments();
-    },[post._id])
+    },[])
 
     const handleLikes = async (e) => {
         e.preventDefault();
@@ -52,7 +52,7 @@ const Post = ({post}) => {
         const res = await postComment({ text: comment, postId:postId, userId:userId });
         //console.log('res in post page', res);
         const res1 = await fetchComments(postId);
-        console.log('line 55',res1?.data?.comments);
+        //console.log('line 55',res1?.data?.comments);
         setCommArray(res1?.data?.comments);
         setCommCount((prev) => prev+1);
         //console.log('result of all comments',res1?.data?.comments);
