@@ -3,8 +3,8 @@ import ImagePostForm from './ImagePostForm';
 
 const ImagePostPage = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md border border-2">
         <h1 className="text-3xl font-semibold text-center mb-6">Share Your Moment</h1>
         <ImagePostForm />
         <div className="mt-8 text-sm text-gray-500 text-center">

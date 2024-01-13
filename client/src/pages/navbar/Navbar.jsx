@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     
-    <div className='flex flex-col justify-evenly items-center w-40 h-full pt-6 fixed bg-slate-50'>
+    <div className='flex flex-col justify-evenly items-center w-40 h-full pt-10 fixed bg-slate-50 shadow-2xl'>
         {
           routes.map((route,index)=>{
             return (

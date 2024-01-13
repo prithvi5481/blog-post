@@ -52,7 +52,8 @@ const Post = ({post}) => {
         const res = await postComment({ text: comment, postId:postId, userId:userId });
         //console.log('res in post page', res);
         const res1 = await fetchComments(postId);
-        setCommArray(res1?.data?.commmets);
+        console.log('line 55',res1?.data?.comments);
+        setCommArray(res1?.data?.comments);
         setCommCount((prev) => prev+1);
         //console.log('result of all comments',res1?.data?.comments);
         setComment(''); // Clear the input field after submitting
@@ -100,7 +101,7 @@ const Post = ({post}) => {
                     onClick={handleLikes}
                 >
                     <img src={likeIcon} alt='like-icon' className='w-8 h-8'/>
-                    <div>{likesCount}</div>
+                    <div className='ml-1'>{likesCount}</div>
                 </div>
                 <div className='w-14 h-14 flex justify-center items-center hover:bg-gray-400 hover:rounded-[50%] hover:cursor-pointer transition-all duration-500 ease-in-out'
                     onClick = {handleCommentToggle}
@@ -109,7 +110,7 @@ const Post = ({post}) => {
                         src={commentIcon} alt='comment-icon' 
                         className='w-8 h-8'
                     />
-                    <div>{commCount}</div>
+                    <div className='ml-1'>{commCount}</div>
                 </div>
             </div>
             <div>
@@ -125,15 +126,18 @@ const Post = ({post}) => {
                 />
                 <button
                 type='submit'
-                className='px-2 py-1 bg-customRed rounded-md mt-1 ml-[410px]'
+                className='px-2 py-1 bg-customRed rounded-md mt-1 ml-[410px] font-kolor font-bold hover:bg-white'
                 >
                 Submit
                 </button>
             </form>
-            <div>
+            <div className='mx-2 my-1'>
                 {commArray?.map((comment, index) => (
-                <div key={index}>
-                    <strong>{comment?.user?.name}:</strong> {comment?.text}
+                <div 
+                    key={index}
+                    className='border border-black rounded-md mb-2 px-1'
+                >
+                    <strong className='font-kolor'>{comment?.user?.name}:</strong> {comment?.text}
                 </div>
                 ))}
             </div>
