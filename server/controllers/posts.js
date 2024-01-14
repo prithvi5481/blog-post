@@ -125,3 +125,28 @@ export const getUserPosts = async (req,res) => {
         res.status(500).json({message:"Internal server error"})
     }
 }
+
+export const deletePost = async (req,res) => {
+    try {
+        const postId = req.params.id;
+        const {userId, loggedInUserId} = req.body;
+        if(userId !== loggedInUserId){
+            return res.status(400).json({message:"You are not authorized to delete the post"});
+        }
+        const post = await Post.findById(postId);
+        if(!post){
+            return res.status(400).json({message:"Post doesn't exist"});
+        }
+        const result = await Post.deleteOne({_id:postId});
+        if(!result){
+            console.log("Post not deleted");
+            return res.stutus(400).json({message:"Post not deleted"});
+        }else{
+            console.log("Post deleted");
+            return res.status(200).json({message:result});
+        }
+    } catch (error) {
+        console.log('error while deleting the post');
+        return res.status(500).json({message:"Internal Server Error"})
+    }
+}
