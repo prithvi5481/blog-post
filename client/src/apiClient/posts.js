@@ -143,5 +143,25 @@ export const getUserPosts = async (payload) => {
         return res;
     } catch (error) {
         console.log('error in user posts');
+        return error;
+    }
+}
+
+export const deletePostById = async (payload) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('Profile'));
+        let config = {
+            headers: {
+                Authorization: `Bearer ${profile.token}`
+            }
+        }
+        const {postId} = payload;
+        console.log(payload);
+        const url = `${CONSTANT.API_URL}/newpost/posts/${postId}/delete`;
+        const res = await axios.post(url,payload,config);
+        return res;
+    } catch (error) {
+        console.log('error while deleting post');
+        return error;
     }
 }

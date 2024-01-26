@@ -13,7 +13,7 @@ router.post('/posts/:id/likes',auth,addLikes);
 router.post('/posts/:id/dislikes',addDislikes);
 router.post('/posts/:id/comments',auth,addComments);
 router.post('/posts/userposts',auth,getUserPosts);
-router.post('/posts/delete/:id',deletePost);
+router.post('/posts/:id/delete',deletePost);
 
 
 export default router;
