@@ -38,6 +38,18 @@ export const logIn = async (payload) => {
     }   
 }
 
+export const userInfo = async (payload) => {
+    try {
+        const userId = payload;
+        const url = `${CONSTANT.API_URL}/user/userInfo/${userId}`;
+        const res = await axios.get(url,config);
+        console.log('user Info api response',res);
+        return res;
+    } catch (error) {
+        console.log('error while fetching user info');
+        throw error;
+    }
+}
 
 
 

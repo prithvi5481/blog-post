@@ -49,3 +49,17 @@ export const getUserId = async (req,res) => {
         return res.status(500).json({message:"Internal Server Error"});
     }
 }
+
+export const userInfo = async (req,res) => {
+    try {
+        const userId = req.params.id;
+        //console.log('mein hu userId',userId);
+        const user = await User.findById({_id:userId});
+        if(!user){
+            res.status(400).json({message:"User doesn't exist"});
+        }
+        return res.status(200).json({user});
+    } catch (error) {
+        return res.status(500).json({message:"Internal Server Error"});
+    }
+}

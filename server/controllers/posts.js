@@ -115,7 +115,7 @@ export const getUserPosts = async (req,res) => {
     try {
         const {userId} = req.body;
         console.log('userId',userId);
-        const posts = await Post.find({user:userId});
+        const posts = await Post.find({user:userId}).populate('user','name');
         if(!posts){
             return res.status(400).json({message:"no posts available"});
         }
