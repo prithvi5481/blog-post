@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     
-    <div className='pt-6'>
+    <div className='pt-6 ml-20'>
       {
         isLoading ? (
           <Loading />

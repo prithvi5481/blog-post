@@ -47,8 +47,8 @@ const Post = ({post}) => {
         const userId = (await getUserId()).data.userId;
         const postId = post._id;
        
-        console.log('userId of comment user', userId);
-        console.log('comment:', comment);
+        //console.log('userId of comment user', userId);
+        //console.log('comment:', comment);
         const res = await postComment({ text: comment, postId:postId, userId:userId });
         //console.log('res in post page', res);
         const res1 = await fetchComments(postId);

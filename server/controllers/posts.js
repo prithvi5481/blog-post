@@ -115,7 +115,7 @@ export const getUserPosts = async (req,res) => {
     try {
         const {userId} = req.body;
         console.log('userId',userId);
-        const posts = await Post.find({user:userId});
+        const posts = await Post.find({user:userId}).populate('user','name');
         if(!posts){
             return res.status(400).json({message:"no posts available"});
         }
@@ -148,5 +148,25 @@ export const deletePost = async (req,res) => {
     } catch (error) {
         console.log('error while deleting the post');
         return res.status(500).json({message:"Internal Server Error"})
+    }
+}
+
+export const getUserComments = async (req,res) => {
+    const userId = req.params.id;
+    try {
+        const userCommentPosts = await Post.find({"comments.user":userId});
+        const userComments = userCommentPosts.map((post) => {
+            const comments = post.comments.filter((comment) => {
+                if(comment.user.toString() === userId){
+                    return comment;
+                }
+            })
+            return comments;
+        })
+        return res.status(200).json({userComments})
+
+    } catch (error) {
+        console.log('error while fetching logged in user comments');
+        return res.status(500).json({message:"Internal Server Error"});
     }
 }
