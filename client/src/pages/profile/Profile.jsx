@@ -31,15 +31,19 @@ const Profile = () => {
   },[])
 
   return (
-    <div>Profile Page
-     <div>User Name - {user?.name}</div> 
-     {
-      userPosts?.map((post) => (
-        <div key={post._id}>
-          <Post post={post}/>
-        </div>
-      ))
-     }
+    <div className='h-screen w-screen'>
+      <div className='w-screen h-14 bg-cyan-300 font-semibold flex items-center px-4 fixed'>
+        <div>{user?.name}</div> 
+      </div>
+      <div className='pt-16'>
+        {
+          userPosts?.map((post) => (
+            <div key={post._id}>
+              <Post post={post}/>
+            </div>
+          ))
+        }
+      </div>
     </div>
   )
 }

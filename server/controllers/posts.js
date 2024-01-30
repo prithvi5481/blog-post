@@ -150,3 +150,23 @@ export const deletePost = async (req,res) => {
         return res.status(500).json({message:"Internal Server Error"})
     }
 }
+
+export const getUserComments = async (req,res) => {
+    const userId = req.params.id;
+    try {
+        const userCommentPosts = await Post.find({"comments.user":userId});
+        const userComments = userCommentPosts.map((post) => {
+            const comments = post.comments.filter((comment) => {
+                if(comment.user.toString() === userId){
+                    return comment;
+                }
+            })
+            return comments;
+        })
+        return res.status(200).json({userComments})
+
+    } catch (error) {
+        console.log('error while fetching logged in user comments');
+        return res.status(500).json({message:"Internal Server Error"});
+    }
+}
