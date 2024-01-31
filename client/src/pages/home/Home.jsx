@@ -7,6 +7,7 @@ import Loading from '../loading/Loading';
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [toggleRefresh, setToggleRefresh] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,7 +21,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [toggleRefresh]);
 
 
 
@@ -33,7 +34,7 @@ const Home = () => {
         ) : (
           <>
             {posts.map((post,index) => (
-              <Post post={post} key={index}/>
+              <Post post={post} key={index} setToggleRefresh = {setToggleRefresh}/>
             ))}
           </>
         )

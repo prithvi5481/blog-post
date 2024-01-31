@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import postImage from '../assets/user-solid.svg';
+import deleteImage from '../assets/trash-solid.svg'
+import threeDots from '../assets/ellipsis-vertical-solid.svg'
 import commentIcon from '../assets/comment-regular.svg'
 import likeIcon from '../assets/thumbs-up-regular.svg'
-import { fetchComments, getCountLikes, getUserId, postComment } from '../apiClient/posts';
+import {allPosts, fetchComments, getCountLikes, getUserId, postComment } from '../apiClient/posts';
 import Comment from './Comment';
+import DropDown from './DropDown';
 
-
-const Post = ({post}) => {
+const Post = ({post,setToggleRefresh}) => {
 
     const [likesCount,setLikesCount] = useState(post.likes.length);
     const [showComments,setShowComments] = useState(false);
     const [comment, setComment] = useState('');
     const [commArray, setCommArray] = useState([]);
     const [commCount,setCommCount] = useState(commArray?.length);
-
+    const [threeDotsIcon, setThreeDotsIcon] = useState(false);
 
     useEffect(() => {
         const fetchAllComments = async () => {
@@ -37,11 +39,16 @@ const Post = ({post}) => {
         console.log('id for like user',userId);
     }
 
+    
     const handleCommentToggle = async (e) => {
         e.preventDefault();
         setShowComments(!showComments);
     }
 
+    const handleThreeDots = (e) => {
+        e.preventDefault();
+        setThreeDotsIcon(!threeDotsIcon);
+    }
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         const userId = (await getUserId()).data.userId;
@@ -82,9 +89,26 @@ const Post = ({post}) => {
         key={post.id}
         className='w-[500px] bg-gray-200 mb-5 border rounded-md'
     >
-        <div className='w-full h-[50px] bg-cyan-300 flex border rounded-t-md'>
-            <img src={postImage} alt='post-image' className='h-[40px] w-[30px] ml-2 pt-1.5'/>
-            <p className='pt-3 pl-4 font-serif'>{post?.user?.name}</p>
+        <div className='w-full h-[50px] bg-cyan-300 border rounded-t-md flex items-center justify-between'>
+            <div className='flex items-center pl-2'>
+                <img src={postImage} alt='post-image' className='h-8 w-8 mr-2'/>
+                <p className='font-serif'>{post?.user?.name}</p>
+            </div>
+            
+            <div className='flex items-center'>
+                <div className='w-8 h-8 hover:bg-cyan-200 hover:rounded-2xl hover:cursor-pointer flex justify-center items-center mr-3'
+                    onClick={handleThreeDots}
+                >
+                    <img src={threeDots} alt='post-delete' />
+                </div>
+            </div>
+            {
+                threeDotsIcon && (
+                    <div className='mt-9'>
+                        <DropDown post={post} setToggleRefresh = {setToggleRefresh}/>
+                    </div>
+                )
+            }
         </div>
         <div className='mb-6 font-kolor px-1'>{post.content}</div>
     
