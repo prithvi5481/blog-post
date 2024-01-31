@@ -59,7 +59,7 @@ export const getUserId = async () => {
         console.log('config address',config);
         const url = `${CONSTANT.API_URL}/user/getUserId`;
         const res = await axios.get(url,config);
-        console.log('userId in auth page',res);
+        //console.log('userId in auth page',res);
         return res;
     } catch (error) {
         return error;
@@ -162,6 +162,25 @@ export const deletePostById = async (payload) => {
         return res;
     } catch (error) {
         console.log('error while deleting post');
+        return error;
+    }
+}
+
+export const getUserComments = async () => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('Profile'));
+        let config = {
+            headers: {
+                Authorization: `Bearer ${profile.token}`
+            }
+        }
+        const {userId} = (await getUserId()).data;
+        console.log('userIdd', userId);
+        const url = `${CONSTANT.API_URL}/newpost/posts/userComments/${userId}`;
+        const res = await axios.get(url,config);
+        return res;
+    } catch (error) {
+        console.log('error while fetching logged in user comments');
         return error;
     }
 }

@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import Postcard from '../posts/Postcard'
-import { getUserId, getUserPosts } from '../../apiClient/posts'
+import { getUserComments, getUserId, getUserPosts } from '../../apiClient/posts'
 import { userInfo } from '../../apiClient/auth'
 import Post from '../../component/Post'
 
@@ -25,6 +25,8 @@ const Profile = () => {
       const id = userId.data.userId;
       const res = await userInfo(id);
       console.log('response',res?.user?.data);
+      const comm = await getUserComments();
+      console.log('commmm',comm);
       setUser(res?.data?.user);
     }
     fetchUserInfo();
@@ -35,7 +37,10 @@ const Profile = () => {
       <div className='w-screen h-14 bg-cyan-300 font-semibold flex items-center px-4 fixed'>
         <div>{user?.name}</div> 
       </div>
-      <div className='pt-16'>
+      <div className='pt-16 pl-8'>
+        {
+          userPosts.length === 0 && <div>You have not posted anything yet</div>
+        }
         {
           userPosts?.map((post) => (
             <div key={post._id}>
